@@ -142,7 +142,7 @@ export const updateProduct = (req, res, next) => {
     product.description = req.body.description;
     product.image = req.body.image;
 
-    return res.res.status(200).send();
+    return res.status(200).send();
 
   } catch (error) {
     next(error)
