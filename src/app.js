@@ -3,6 +3,7 @@ const app = express();
 import { productRouter } from './api/product.js';
 import globalErrorHandlingMiddleware from './api/middleware/global-error-handling-middleware.js';
 import { categoryRouter } from './api/category.js';
+import { connectDB } from './infrastructure/db.js';
 
 
 
@@ -36,5 +37,5 @@ app.use(globalErrorHandlingMiddleware)
 
 // app.patch('/products/:id', updateProduct)
 
-
+connectDB();
 app.listen(8000, () => console.log(`Server running on port ${8000}`)); 

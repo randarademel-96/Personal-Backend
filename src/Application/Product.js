@@ -1,4 +1,5 @@
 import NotFoundError from "../Domain/Errors/not-found-error.js";
+import Product from "../infrastructure/schemas/Product.js";
 
 const products = [
   {
@@ -75,19 +76,20 @@ const products = [
   },
 ];
 
-export const getProducts = (req, res, next) => {
+export const getProducts = async (req, res, next) => {
   try {
 
-    return res.status(200).json(products).send();
+    const data = await Product.find();
+    return res.status(200).json(data).send();
 
   } catch (error) {
     next(error)
   }
 };
 
-export const createProduct = (req, res, next) => {
+export const createProduct = async (req, res, next) => {
   try {
-    products.push(req.body);
+    await Product.create(req.body);
     return res.status(201).send("Product created")
 
   } catch (error) {
@@ -96,10 +98,10 @@ export const createProduct = (req, res, next) => {
 
 };
 
-export const getProduct = (req, res, next) => {
+export const getProduct = async (req, res, next) => {
   try {
     const pid = req.params.id
-    const product = products.find((pro) => pro.id == pid)
+    const product = await Product.findById(id)
 
     if (!product) {
       throw new NotFoundError("Product not found");
@@ -113,15 +115,14 @@ export const getProduct = (req, res, next) => {
 
 };
 
-export const deleteProduct = (req, res, next) => {
+export const deleteProduct = async (req, res, next) => {
   try {
     const pid = req.params.id;
-    const index = products.findIndex((prod) => prod.id == pid);
+    const product = await Product.findByIdAndDelete(pid)
 
-    if (index === -1) {
+    if (!product) {
       throw new NotFoundError("Product not found");
     }
-    products.splice(index, 1)
     return res.status(204).send()
 
   } catch (error) {
@@ -129,20 +130,16 @@ export const deleteProduct = (req, res, next) => {
   }
 };
 
-export const updateProduct = (req, res, next) => {
+export const updateProduct = async (req, res, next) => {
   try {
     const pid = req.params.id;
-    const product = products.find((pro) => pro.id == pid)
+    const product = await Product.findByIdAndUpdate(pid, req.body)
+
     if (!product) {
       throw new NotFoundError("Product not found");
     }
 
-    product.name = req.body.name;
-    product.price = req.body.price;
-    product.description = req.body.description;
-    product.image = req.body.image;
-
-    return res.status(200).send();
+    return res.status(200).send(product);
 
   } catch (error) {
     next(error)

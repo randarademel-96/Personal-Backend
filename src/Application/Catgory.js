@@ -3,11 +3,11 @@ import NotFoundError from "../Domain/Errors/not-found-error.js";
 
 
 const categories = [
-  { id: "1", name: "Headphones" },
-  { id: "2", name: "Earbuds" },
-  { id: "3", name: "Speakers" },
-  { id: "4", name: "Mobile Phones" },
-  { id: "5", name: "Smart Watches" },
+  { categoryId: "1", name: "Headphones" },
+  { categoryId: "2", name: "Earbuds" },
+  { categoryId: "3", name: "Speakers" },
+  { categoryId: "4", name: "Mobile Phones" },
+  { categoryId: "5", name: "Smart Watches" },
 ];
 
 
@@ -25,7 +25,7 @@ export const createCategory = (req, res, next) => {
 
 
   try {
-    categories.push(req.body, next);
+    categories.push(req.body);
     return res.status(201).send("Category created")
     
   } catch (error) {
