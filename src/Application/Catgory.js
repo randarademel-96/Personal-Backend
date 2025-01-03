@@ -1,4 +1,5 @@
 import NotFoundError from "../Domain/Errors/not-found-error.js";
+import Category from "../infrastructure/schemas/Category.js";
 
 
 
@@ -11,32 +12,34 @@ const categories = [
 ];
 
 
-export const getCategories = (req, res, next) => {
+export const getCategories = async (req, res, next) => {
 
   try {
-    return res.status(200).json(categories).send()
+
+    const data = await Category.find()
+    return res.status(200).json(data).send()
 
   } catch (error) {
     next(error)
   }
 }
 
-export const createCategory = (req, res, next) => {
+export const createCategory = async (req, res, next) => {
 
 
   try {
-    categories.push(req.body);
+    await Category.create(req.body);
     return res.status(201).send("Category created")
-    
+
   } catch (error) {
     next(error);
   }
 }
 
-export const getCategory = (req, res, next) => {
+export const getCategory = async (req, res, next) => {
   try {
     const cid = req.params.id
-    const category = categories.find((cat) => cat.id == cid)
+    const category = await Category.findById(cid);
 
     if (!category) {
       throw new NotFoundError("Category not found")
@@ -50,12 +53,12 @@ export const getCategory = (req, res, next) => {
 
 }
 
-export const deleteCategory = (req, res, next) => {
+export const deleteCategory = async (req, res, next) => {
   try {
     const cid = req.params.id
-    const cindex = categories.findIndex((cat) => cat.id == cid)
+    const category = await Category.findByIdAndDelete(cid)
 
-    if (cindex == -1) {
+    if (!category) {
       throw new NotFoundError("Category not found")
     }
 
@@ -67,21 +70,18 @@ export const deleteCategory = (req, res, next) => {
   }
 }
 
-export const updateCategory = (req, res,next) => {
+export const updateCategory = async (req, res, next) => {
 
   try {
     const cid = req.params.id
-  const category = categories.find((cat) => cat.id == cid)
+    const category = await Category.findByIdAndUpdate(cid, req.body)
 
-  if(!category){
-    throw new NotFoundError("Category not found")
-  }
+    if (!category) {
+      throw new NotFoundError("Category not found")
+    }
 
-  category.id = req.body.id;
-  category.name = req.body.name;
+    return res.status(200).send(category);
 
-  return res.status(200).send();
-    
   } catch (error) {
     next(error)
   }

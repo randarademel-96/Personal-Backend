@@ -3,7 +3,7 @@ import Product from "../infrastructure/schemas/Product.js";
 
 const products = [
   {
-    categoryId: "1",
+    categoryId: "6770e44e79b3f34f82e4cb5f",
     image: "/assets/products/airpods-max.png",
     id: "1",
     name: "AirPods Max",
@@ -12,7 +12,7 @@ const products = [
       "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas, sequi?",
   },
   {
-    categoryId: "3",
+    categoryId: "6770e47e79b3f34f82e4cb63",
     image: "/assets/products/echo-dot.png",
     id: "2",
     name: "Echo Dot",
@@ -21,7 +21,7 @@ const products = [
       "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas, sequi?",
   },
   {
-    categoryId: "2",
+    categoryId: "6770e46879b3f34f82e4cb61",
     image: "/assets/products/pixel-buds.png",
     id: "3",
     name: "Galaxy Pixel Buds",
@@ -30,7 +30,7 @@ const products = [
       "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas, sequi?",
   },
   {
-    categoryId: "1",
+    categoryId: "6770e44e79b3f34f82e4cb5f",
     image: "/assets/products/quietcomfort.png",
     id: "4",
     name: "Bose QuiteComfort",
@@ -79,8 +79,17 @@ const products = [
 export const getProducts = async (req, res, next) => {
   try {
 
-    const data = await Product.find();
+    const { categoryId } = req.query;
+    if (!categoryId) {
+      const data = await Product.find();
+      return res.status(200).json(data).send();
+    }
+
+    const data = await Product.find({ categoryId });
     return res.status(200).json(data).send();
+
+
+
 
   } catch (error) {
     next(error)
@@ -101,7 +110,7 @@ export const createProduct = async (req, res, next) => {
 export const getProduct = async (req, res, next) => {
   try {
     const pid = req.params.id
-    const product = await Product.findById(id)
+    const product = await Product.findById(pid).populate("categoryId");
 
     if (!product) {
       throw new NotFoundError("Product not found");
