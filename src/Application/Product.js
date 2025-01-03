@@ -154,5 +154,6 @@ export const updateProduct = async (req, res, next) => {
     next(error)
   }
 
+// Eport Cons
 
 };
