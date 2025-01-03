@@ -3,13 +3,13 @@ import Category from "../infrastructure/schemas/Category.js";
 
 
 
-const categories = [
-  { categoryId: "1", name: "Headphones" },
-  { categoryId: "2", name: "Earbuds" },
-  { categoryId: "3", name: "Speakers" },
-  { categoryId: "4", name: "Mobile Phones" },
-  { categoryId: "5", name: "Smart Watches" },
-];
+// const categories = [
+//   { categoryId: "1", name: "Headphones" },
+//   { categoryId: "2", name: "Earbuds" },
+//   { categoryId: "3", name: "Speakers" },
+//   { categoryId: "4", name: "Mobile Phones" },
+//   { categoryId: "5", name: "Smart Watches" },
+// ];
 
 
 export const getCategories = async (req, res, next) => {

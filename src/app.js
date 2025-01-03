@@ -17,7 +17,7 @@ app.use(express.json()); // For parsing JSON requests*
 // })
 
 app.use('/api/products', productRouter);
-app.use('/api/category', categoryRouter);
+app.use('/api/categories', categoryRouter);
 
 
 
