@@ -17,7 +17,7 @@ export const getCategories = async (req, res, next) => {
   try {
 
     const data = await Category.find()
-    return res.status(200).json(data)
+    return res.status(200).json(data);
 
   } catch (error) {
     next(error)
@@ -29,7 +29,7 @@ export const createCategory = async (req, res, next) => {
 
   try {
     await Category.create(req.body);
-    return res.status(201).send("Category created")
+    return res.status(201).send("Category created");
 
   } catch (error) {
     next(error);
@@ -45,7 +45,7 @@ export const getCategory = async (req, res, next) => {
       throw new NotFoundError("Category not found")
     }
 
-    return res.status(200).json(category).send()
+    return res.status(200).json(category);
 
   } catch (error) {
     next(error);
