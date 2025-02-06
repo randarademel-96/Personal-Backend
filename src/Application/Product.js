@@ -39,7 +39,7 @@ import Product from "../infrastructure/schemas/Product.js";
 //       "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas, sequi?",
 //   },
 //   {
-//     categoryId: "3",
+//     categoryId: "6770e47e79b3f34f82e4cb63",
 //     image: "/assets/products/soundlink.png",
 //     id: "5",
 //     name: "Bose SoundLink",
@@ -48,7 +48,7 @@ import Product from "../infrastructure/schemas/Product.js";
 //       "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas, sequi?",
 //   },
 //   {
-//     categoryId: "5",
+//     categoryId: "6770e49979b3f34f82e4cb67",
 //     image: "/assets/products/apple-watch.png",
 //     id: "6",
 //     name: "Apple Watch 9",
@@ -57,7 +57,7 @@ import Product from "../infrastructure/schemas/Product.js";
 //       "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas, sequi?",
 //   },
 //   {
-//     categoryId: "4",
+//     categoryId: "6770e48d79b3f34f82e4cb65",
 //     image: "/assets/products/iphone-15.png",
 //     id: "7",
 //     name: "Apple Iphone 15",
@@ -66,7 +66,7 @@ import Product from "../infrastructure/schemas/Product.js";
 //       "Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas, sequi?",
 //   },
 //   {
-//     categoryId: "4",
+//     categoryId: "6770e48d79b3f34f82e4cb65",
 //     image: "/assets/products/pixel-8.png",
 //     id: "8",
 //     name: "Galaxy Pixel 8",
@@ -86,7 +86,7 @@ export const getProducts = async (req, res, next) => {
     }
 
     const data = await Product.find({ categoryId });
-    return res.status(200).json(data).send();
+    return res.status(200).json(data);
 
 
 
